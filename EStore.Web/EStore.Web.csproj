@@ -14,6 +14,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="9.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
@@ -35,6 +37,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EStore.DataAccess\EStore.DataAccess.csproj" />
+      <ProjectReference Include="..\EStore.Services\EStore.Services.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
