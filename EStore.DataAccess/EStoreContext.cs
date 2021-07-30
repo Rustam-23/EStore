@@ -1,4 +1,5 @@
-﻿using EStore.Domains.Entities;
+﻿using System;
+using EStore.Domains.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EStore.DataAccess
@@ -10,10 +11,29 @@ namespace EStore.DataAccess
         }
         
         public DbSet<Product> Products { get; set; }
+        
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Specification> Specifications { get; set; }
+        
+        public DbSet<ProductSpecification> ProductSpecifications { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ProductSpecification>()
+                .HasKey(ps => new { ps.ProductId, ps.SpecificationId });
+
+            modelBuilder.Entity<ProductSpecification>()
+                .HasOne(ps => ps.Product)
+                .WithMany(p => p.ProductSpecifications)
+                .HasForeignKey(ps => ps.ProductId);
+
+            modelBuilder.Entity<ProductSpecification>()
+                .HasOne(ps => ps.Specification)
+                .WithMany(s => s.ProductSpecifications)
+                .HasForeignKey(ps => ps.SpecificationId);
+            
             modelBuilder.Entity<Brand>().HasData(
                 new Brand[] 
                 {
@@ -67,6 +87,84 @@ namespace EStore.DataAccess
                     new Product { Id=18, Name="Сушильная машина Samsung DV90TA040AE", BrandId = 1, CategoryId = 7, Price = 43390, ImagePath = "", Rating = 6},
                     new Product { Id=19, Name="Холодильник LG DoorCoolingи", BrandId = 3, CategoryId = 3, Price = 39390, ImagePath = "", Rating = 3},
                     new Product { Id=20, Name="Холодильник Bosch Serie", BrandId = 6, CategoryId = 3, Price = 45990, ImagePath = "", Rating = 2}
+                });
+            
+            modelBuilder.Entity<Specification>().HasData(
+                new Specification[] 
+                {
+                    new Specification { Id=1, Name="Цвет", SpecificationType = ESpecificationType.SpecString},
+                    new Specification { Id=2, Name="Вес", SpecificationType = ESpecificationType.SpecDecimal},
+                    new Specification { Id=3, Name="Подсветка", SpecificationType = ESpecificationType.SpecBoolean},
+                    new Specification { Id=4, Name="Диагональ экрана", SpecificationType = ESpecificationType.SpecDecimal}
+                    });
+            
+            modelBuilder.Entity<ProductSpecification>().HasData(
+                new ProductSpecification[] 
+                {
+                    new ProductSpecification { ProductId = 1, SpecificationId = 1, SpecString = "Красный"},
+                    new ProductSpecification { ProductId = 1, SpecificationId = 2, SpecDecimal = (decimal?) 0.18},
+                    new ProductSpecification { ProductId = 1, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 1, SpecificationId = 4, SpecDecimal = 5},
+                    new ProductSpecification { ProductId = 2, SpecificationId = 1, SpecString = "Синий"},
+                    new ProductSpecification { ProductId = 2, SpecificationId = 2, SpecDecimal = (decimal?) 0.5},
+                    new ProductSpecification { ProductId = 2, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 2, SpecificationId = 4, SpecDecimal = 5},
+                    new ProductSpecification { ProductId = 3, SpecificationId = 1, SpecString = "Синий"},
+                    new ProductSpecification { ProductId = 3, SpecificationId = 2, SpecDecimal = 1},
+                    new ProductSpecification { ProductId = 3, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 3, SpecificationId = 4, SpecDecimal = 21},
+                    new ProductSpecification { ProductId = 4, SpecificationId = 1, SpecString = "Белый"},
+                    new ProductSpecification { ProductId = 4, SpecificationId = 2, SpecDecimal = (decimal?) 1.5},
+                    new ProductSpecification { ProductId = 4, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 4, SpecificationId = 4, SpecDecimal = 19},
+                    new ProductSpecification { ProductId = 5, SpecificationId = 1, SpecString = "Черный"},
+                    new ProductSpecification { ProductId = 5, SpecificationId = 2, SpecDecimal = (decimal?) 1.5},
+                    new ProductSpecification { ProductId = 5, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 5, SpecificationId = 4, SpecDecimal = 13},
+                    new ProductSpecification { ProductId = 6, SpecificationId = 1, SpecString = "Синий"},
+                    new ProductSpecification { ProductId = 6, SpecificationId = 2, SpecDecimal = (decimal?) 1.5},
+                    new ProductSpecification { ProductId = 6, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 6, SpecificationId = 4, SpecDecimal = 15},
+                    new ProductSpecification { ProductId = 7, SpecificationId = 1, SpecString = "Черный"},
+                    new ProductSpecification { ProductId = 7, SpecificationId = 2, SpecDecimal = (decimal?) 3.5},
+                    new ProductSpecification { ProductId = 7, SpecificationId = 3, SpecBoolean = false},
+                    new ProductSpecification { ProductId = 7, SpecificationId = 4, SpecDecimal = 62},
+                    new ProductSpecification { ProductId = 8, SpecificationId = 1, SpecString = "Белый"},
+                    new ProductSpecification { ProductId = 8, SpecificationId = 2, SpecDecimal = (decimal?) 2.6},
+                    new ProductSpecification { ProductId = 8, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 8, SpecificationId = 4, SpecDecimal = 34},
+                    new ProductSpecification { ProductId = 9, SpecificationId = 1, SpecString = "Черный"},
+                    new ProductSpecification { ProductId = 9, SpecificationId = 2, SpecDecimal = (decimal?) 2.5},
+                    new ProductSpecification { ProductId = 9, SpecificationId = 3, SpecBoolean = false},
+                    new ProductSpecification { ProductId = 9, SpecificationId = 4, SpecDecimal = 55},
+                    new ProductSpecification { ProductId = 10, SpecificationId = 1, SpecString = "Красный"},
+                    new ProductSpecification { ProductId = 10, SpecificationId = 2, SpecDecimal = 2},
+                    new ProductSpecification { ProductId = 10, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 10, SpecificationId = 4, SpecDecimal = 43},
+                    new ProductSpecification { ProductId = 11, SpecificationId = 1, SpecString = "Красный"},
+                    new ProductSpecification { ProductId = 11, SpecificationId = 2, SpecDecimal = (decimal?) 0.5},
+                    new ProductSpecification { ProductId = 12, SpecificationId = 1, SpecString = "Красный"},
+                    new ProductSpecification { ProductId = 12, SpecificationId = 2, SpecDecimal = (decimal?) 0.3},
+                    new ProductSpecification { ProductId = 12, SpecificationId = 3, SpecBoolean = true},
+                    new ProductSpecification { ProductId = 13, SpecificationId = 1, SpecString = "Белый"},
+                    new ProductSpecification { ProductId = 13, SpecificationId = 2, SpecDecimal = 2},
+                    new ProductSpecification { ProductId = 14, SpecificationId = 1, SpecString = "Белый"},
+                    new ProductSpecification { ProductId = 14, SpecificationId = 2, SpecDecimal = 3},
+                    new ProductSpecification { ProductId = 15, SpecificationId = 1, SpecString = "Синий"},
+                    new ProductSpecification { ProductId = 15, SpecificationId = 2, SpecDecimal = 3},
+                    new ProductSpecification { ProductId = 16, SpecificationId = 1, SpecString = "Черный"},
+                    new ProductSpecification { ProductId = 16, SpecificationId = 2, SpecDecimal = 3},
+                    new ProductSpecification { ProductId = 17, SpecificationId = 1, SpecString = "Черный"},
+                    new ProductSpecification { ProductId = 17, SpecificationId = 2, SpecDecimal = 15},
+                    new ProductSpecification { ProductId = 18, SpecificationId = 1, SpecString = "Белый"},
+                    new ProductSpecification { ProductId = 18, SpecificationId = 2, SpecDecimal = 25},
+                    new ProductSpecification { ProductId = 18, SpecificationId = 3,SpecBoolean = true},
+                    new ProductSpecification { ProductId = 19, SpecificationId = 1, SpecString = "Белый"},
+                    new ProductSpecification { ProductId = 19, SpecificationId = 2,SpecDecimal = 25},
+                    new ProductSpecification { ProductId = 19, SpecificationId = 3,SpecBoolean = true},
+                    new ProductSpecification { ProductId = 19, SpecificationId = 4,SpecDecimal = 19},
+                    new ProductSpecification { ProductId = 20, SpecificationId = 1, SpecString = "Красный"},
+                    new ProductSpecification { ProductId = 20, SpecificationId = 2, SpecDecimal = 30}
                 });
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace EStore.Domains.Entities
+﻿using System.Collections.Generic;
+
+namespace EStore.Domains.Entities
 {
     public class Product
     {
@@ -18,6 +20,6 @@
         
         public int Rating { get; set; }
         
-        
+        public List<ProductSpecification> ProductSpecifications { get; set; }= new List<ProductSpecification>();
     }
 }
