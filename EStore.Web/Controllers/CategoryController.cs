@@ -16,18 +16,25 @@ namespace EStore.Controllers
             _mediator = mediator;
         }
         
-        [HttpGet]
+        [HttpGet("getAllCategories")]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _mediator.Send(new GetAllCategoriesQuery());
             return Ok(categories);
         }
         
-        [HttpGet("id")]
+        [HttpGet("getAllProductsByCategoryId")]
         public async Task<IActionResult> GetAllProductsByCategoryId([FromQuery]int id)
         {
             var products = await _mediator.Send(new GetAllProductsByCategoryIdQuery(id));
             return Ok(products);
+        }
+        
+        [HttpGet("getAllSpecificationByCategory")]
+        public async Task<IActionResult> GetAllSpecificationByCategory([FromQuery]int id)
+        {
+            var specifications = await _mediator.Send(new GetAllSpecificationByCategoryQuery(id));
+            return Ok(specifications);
         }
         
     }

@@ -1,0 +1,11 @@
+<div *ngIf="specification$ | async; let specifications">
+  <div *ngFor="let specification of specifications">
+    <app-filter-product [specification]="specification"></app-filter-product>
+  </div>
+</div>
+<div *ngIf="products$ | async; let products">
+  <h2 *ngIf="products?.length>0">Категория: {{products[0].categoryName}}</h2>
+  <div *ngFor="let product of products">
+    <app-product [product]="product"></app-product>
+  </div>
+</div>

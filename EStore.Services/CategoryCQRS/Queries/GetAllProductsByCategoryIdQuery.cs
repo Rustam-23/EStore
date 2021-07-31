@@ -31,14 +31,26 @@ namespace EStore.Services.CategoryCQRS.Queries
                 var products = await _context.Products
                     .Where(x => x.CategoryId == request.Id)
                     .Include(x => x.Brand)
+                    .Include(x=> x.Category)
                     .Select(x => new ProductDto
                     {
                         Id = x.Id,
                         Name = x.Name,
                         BrandName = x.Brand.Name,
+                        CategoryName = x.Category.Name,
                         Price = x.Price,
                         Rating = x.Rating,
-                        ImagePath = x.ImagePath
+                        ImagePath = x.ImagePath,
+                        ProductSpecifications = x.ProductSpecifications
+                            .Select(p=> new ProductSpecificationDto
+                            {
+                                ProductId = p.ProductId,
+                                SpecificationId = p.SpecificationId,
+                                SpecString = p.SpecString,
+                                SpecDecimal = p.SpecDecimal,
+                                SpecBoolean = p.SpecBoolean,
+                                ProductSpecificationName = p.Specification.Name
+                            }).ToList()
                     })
                     .ToListAsync(cancellationToken);
                 return products;

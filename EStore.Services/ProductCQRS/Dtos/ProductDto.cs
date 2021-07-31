@@ -1,4 +1,7 @@
-﻿namespace EStore.Services.ProductCQRS.Dtos
+﻿using System.Collections.Generic;
+using EStore.Domains.Entities;
+
+namespace EStore.Services.ProductCQRS.Dtos
 {
     public class ProductDto
     {
@@ -15,5 +18,7 @@
         public string ImagePath { get; set; }
         
         public int Rating { get; set; }
+
+        public List<ProductSpecificationDto> ProductSpecifications { get; set; }
     }
 }

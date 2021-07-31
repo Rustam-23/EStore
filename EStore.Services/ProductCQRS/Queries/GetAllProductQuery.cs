@@ -30,7 +30,10 @@ namespace EStore.Services.ProductCQRS.Queries
             }
             public async Task<IEnumerable<ProductDto>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
             {
+                var test = _context.Products.Include(x=> x.ProductSpecifications).ToList();
                 var products = await _context.Products
+                    .Include(x=> x.ProductSpecifications)
+                    .ThenInclude(x=> x.Specification)
                     .Where(x=> x.Price < request.MaxPrice && x.Price > request.MinPrice)
                     .Select(x =>
                         new ProductDto
@@ -41,7 +44,17 @@ namespace EStore.Services.ProductCQRS.Queries
                             BrandName = x.Brand.Name,
                             Price = x.Price,
                             Rating = x.Rating,
-                            ImagePath = x.ImagePath
+                            ImagePath = x.ImagePath,
+                            ProductSpecifications = x.ProductSpecifications
+                                .Select(p=> new ProductSpecificationDto
+                                {
+                                    ProductId = p.ProductId,
+                                    SpecificationId = p.SpecificationId,
+                                    SpecString = p.SpecString,
+                                    SpecDecimal = p.SpecDecimal,
+                                    SpecBoolean = p.SpecBoolean,
+                                    ProductSpecificationName = p.Specification.Name
+                                }).ToList()
                         })                    
                     .ToListAsync(cancellationToken);
 
