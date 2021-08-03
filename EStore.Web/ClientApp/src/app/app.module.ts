@@ -13,18 +13,20 @@ import { CategoryComponent } from './category/category.component';
 import { ProductComponent } from './product/product.component';
 import {Category} from "./home/home.models";
 import { FilterProductComponent } from './product/filter-product/filter-product.component';
+import {FilterPipe} from "./pipes/filter.pipe";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    CategoryComponent,
-    ProductComponent,
-    FilterProductComponent
-  ],
+    declarations: [
+        AppComponent,
+        NavMenuComponent,
+        HomeComponent,
+        CounterComponent,
+        FetchDataComponent,
+        CategoryComponent,
+        ProductComponent,
+        FilterProductComponent,
+        [FilterPipe]
+            ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,

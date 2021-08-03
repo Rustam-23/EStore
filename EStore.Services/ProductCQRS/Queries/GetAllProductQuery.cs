@@ -11,15 +11,18 @@ namespace EStore.Services.ProductCQRS.Queries
 {
     public class GetAllProductQuery : IRequest<IEnumerable<ProductDto>>
     {
+        public int CategoryId { get; set; }
         public decimal MaxPrice { get; set; }
         public EProductOrder ProductOrder { get; set; }
         public decimal MinPrice { get; set; }
-        public GetAllProductQuery(decimal minPrice, decimal maxPrice, EProductOrder productOrder)
+        public GetAllProductQuery(int categoryId, decimal minPrice, decimal maxPrice, EProductOrder productOrder)
         {
+            CategoryId = categoryId;
             MaxPrice = maxPrice;
             ProductOrder = productOrder;
             MinPrice = minPrice;
         }
+        
         private class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, IEnumerable<ProductDto>>
         {
             private readonly EStoreContext _context;
@@ -30,10 +33,10 @@ namespace EStore.Services.ProductCQRS.Queries
             }
             public async Task<IEnumerable<ProductDto>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
             {
-                var test = _context.Products.Include(x=> x.ProductSpecifications).ToList();
                 var products = await _context.Products
                     .Include(x=> x.ProductSpecifications)
                     .ThenInclude(x=> x.Specification)
+                    .Where(x=> x.CategoryId == request.CategoryId)
                     .Where(x=> x.Price < request.MaxPrice && x.Price > request.MinPrice)
                     .Select(x =>
                         new ProductDto

@@ -1,9 +1,13 @@
-<h1>Hello, world!</h1>
-<h2>Категории выбери</h2>
-<ul *ngIf="categories$ | async; let categories" class="heroes">
+<h1>EStore</h1>
+<h2>Категории</h2>
+<ul *ngIf="categories$ | async; let categories" class="border">
   <li *ngFor="let category of categories">
     <div routerLink="/category/{{category.id}}">
-      <span class="badge">{{category.id}}</span> {{category.name}}
+      <span>{{category.id}}.</span> <span style="padding-left: 10px">{{category.name}}</span>
     </div>
   </li>
 </ul>
+<div> Поиск
+  <input type="text" [(ngModel)]="search">
+</div>
+

@@ -18,10 +18,10 @@ namespace EStore.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAllProductsSortByPrice(decimal minPrice, EProductOrder productOrder, decimal maxPrice = decimal.MaxValue)
+        [HttpGet("getAllProductsSortByPrice")]
+        public async Task<IActionResult> GetAllProductsSortByPrice(int categoryId, decimal minPrice, EProductOrder productOrder, decimal maxPrice = decimal.MaxValue)
         {
-            var products = await _mediator.Send(new GetAllProductQuery(minPrice, maxPrice, productOrder));
+            var products = await _mediator.Send(new GetAllProductQuery(categoryId, minPrice, maxPrice, productOrder));
             return Ok(products);
         }
     }

@@ -14,6 +14,10 @@ export class CategoryComponent implements OnInit {
 
   products$: Observable<Product[]>;
   specification$: Observable<Specification[]>;
+  minPrice: number = 1;
+  maxPrice: number = 150000;
+  productOrder: number = 1;
+
 
   constructor(private route: ActivatedRoute,
               private homeService: HomeService) { }
@@ -29,5 +33,11 @@ export class CategoryComponent implements OnInit {
   getAllSpecificationByCategory(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.specification$=this.homeService.getAllSpecificationByCategory(id);
+  }
+
+  filtering() {
+    console.log('AAa', this.minPrice, this.maxPrice);
+    const categoryId = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    this.products$ = this.homeService.getAllProductsSortByPrice(categoryId, this.minPrice, this.maxPrice, this.productOrder);
   }
 }

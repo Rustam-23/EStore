@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Observable} from "rxjs";
 import {Category} from "./home.models";
 import {HomeService} from "./home.service";
+import {Product} from "../product/product.models";
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,8 @@ import {HomeService} from "./home.service";
 })
 export class HomeComponent {
   categories$: Observable<Category[]>
+
+  search = '';
 
   constructor(private homeService: HomeService) {
     this.categories$ = homeService.getAllCategories();

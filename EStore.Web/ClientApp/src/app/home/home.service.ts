@@ -20,5 +20,8 @@ export class HomeService {
   getAllSpecificationByCategory(id: number): Observable<Specification[]> {
     return this.http.get<Specification[]>('category/getAllSpecificationByCategory?id=' + id);
   }
+  getAllProductsSortByPrice(categoryId: number, minPrice: number, maxPrice: number, productOrder: number): Observable<Product[]> {
+    return this.http.get<Product[]>('product/getAllProductsSortByPrice?' + `categoryId=${categoryId}&minPrice=${minPrice}&productOrder=${productOrder}&maxPrice=${maxPrice}`)
+  }
 }
 

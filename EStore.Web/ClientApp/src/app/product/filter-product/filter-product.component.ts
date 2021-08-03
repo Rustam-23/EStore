@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Specification} from "../../home/home.models";
+import {Specification, SpecificationTypeEnum} from "../../home/home.models";
 
 @Component({
   selector: 'app-filter-product',
@@ -13,4 +13,7 @@ export class FilterProductComponent implements OnInit {
   ngOnInit() {
   }
 
+  checkStringType(): boolean {
+    return this.specification.specificationType == SpecificationTypeEnum.SpecString;
+  }
 }
