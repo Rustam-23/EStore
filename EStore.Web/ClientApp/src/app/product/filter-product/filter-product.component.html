@@ -1,0 +1,10 @@
+<div>
+   {{specification.name}}
+</div>
+<div>
+  {{specification.specificationType}}
+</div>
+<div *ngIf="checkStringType()">
+<label>{{specification.name}}</label>
+  <input type="text">
+</div>

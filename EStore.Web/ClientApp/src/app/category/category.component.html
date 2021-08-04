@@ -1,0 +1,35 @@
+<!--<div *ngIf="specification$ | async; let specifications">-->
+<!--  <div *ngFor="let specification of specifications">-->
+<!--    <app-filter-product [specification]="specification">-->
+<!--    </app-filter-product>-->
+<!--  </div>-->
+<!--</div>-->
+<div>
+  <div class="sort-block">
+    <h2> Сортировка</h2>
+    <select type="number" id="categoryId" name="categoryId" [(ngModel)]="productOrder">
+      <option value="1">По возрастанию цены</option>
+      <option value="2">По убыванию цены</option>
+      <option value="3">По возрастанию рейтинга</option>
+      <option value="4">По убыванию рейтинга</option>
+    </select>
+    <h3>Цена:</h3>
+        <label for="minPrice"> От:</label>
+    <input type="number" id="minPrice" name="minPrice"
+           min="0" max="150000" [(ngModel)]="minPrice">
+    <label for="maxPrice"> До:</label>
+    <input type="number" id="maxPrice" name="maxPrice"
+           min="0" max="150000" [(ngModel)]="maxPrice">
+    <button (click)="filtering()">Фильтровать</button>
+  </div>
+  <div class="products-container">
+    <div *ngIf="products$ | async; let products">
+      <h2 *ngIf="products?.length>0">Категория: {{products[0].categoryName}}</h2>
+      <div *ngFor="let product of products">
+        <app-product [product]="product"></app-product>
+      </div>
+    </div>
+  </div>
+</div>
+
+

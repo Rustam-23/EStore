@@ -1,0 +1,7 @@
+.flex-container {
+  display: flex;
+  border: 1px solid brown;
+}
+.sort-block {
+  background-position: right ;
+}
