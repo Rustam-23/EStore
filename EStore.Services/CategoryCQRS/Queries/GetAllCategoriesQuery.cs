@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EStore.Services.CategoryCQRS.Queries
 {
+    /// <summary>
+    /// Получение всех категорий
+    /// </summary>
     public class GetAllCategoriesQuery : IRequest<IEnumerable<CategoryDto>>
     {
         private class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuery, IEnumerable<CategoryDto>>

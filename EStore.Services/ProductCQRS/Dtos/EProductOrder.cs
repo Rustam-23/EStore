@@ -1,5 +1,8 @@
 ﻿namespace EStore.Services.ProductCQRS.Dtos
 {
+    /// <summary>
+    /// Сортировка
+    /// </summary>
     public enum EProductOrder
     {
         PriceAsc = 1, // сортировка по возрастанию цены

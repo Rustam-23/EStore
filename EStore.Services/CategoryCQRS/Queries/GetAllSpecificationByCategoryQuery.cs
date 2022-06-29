@@ -8,6 +8,9 @@ using MediatR;
 
 namespace EStore.Services.CategoryCQRS.Queries
 {
+    /// <summary>
+    /// Получение спецификаций
+    /// </summary>
     public class GetAllSpecificationByCategoryQuery : IRequest<IEnumerable<SpecificationDto>>
     {
         public int Id { get; }
@@ -30,7 +33,7 @@ namespace EStore.Services.CategoryCQRS.Queries
             public async Task<IEnumerable<SpecificationDto>> Handle(
                 GetAllSpecificationByCategoryQuery request, CancellationToken cancellationToken)
             {
-                //Получить все айдишники продуктов по категории
+                //Получить все id продуктов по категории
                 //Получить все спецификации по этим товарам
                 var productIds = _context.Products
                     .Where(x => x.CategoryId == request.Id)

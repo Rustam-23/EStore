@@ -3,6 +3,9 @@ using EStore.Domains.Entities;
 
 namespace EStore.Services.ProductCQRS.Dtos
 {
+    /// <summary>
+    /// Наименование спецификации
+    /// </summary>
     public class SpecificationDto
     {
         public int Id { get; set; }

@@ -1,5 +1,8 @@
 ﻿namespace EStore.Services.ProductCQRS.Dtos
 {
+    /// <summary>
+    /// Спецификация продукта
+    /// </summary>
     public class ProductSpecificationDto
     {
         public int ProductId { get; set; }

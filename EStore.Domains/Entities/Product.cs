@@ -18,17 +18,17 @@ namespace EStore.Domains.Entities
         public string Name { get; set; }
         
         /// <summary>
-        /// Id
+        /// Id Категории
         /// </summary>
         public int CategoryId { get; set; }
         
         /// <summary>
-        /// Id
+        /// Категория
         /// </summary>
         public Category Category { get; set; }
         
         /// <summary>
-        /// Id
+        /// Id Бренда
         /// </summary>
         public int BrandId { get; set; }
 
