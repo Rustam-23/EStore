@@ -27,6 +27,9 @@
       <h2 *ngIf="products?.length>0">Категория: {{products[0].categoryName}}</h2>
       <div *ngFor="let product of products">
         <app-product [product]="product"></app-product>
+        <div routerLink="/product/{{product.id}}">
+          <span>{{product.id}}.</span> <span style="padding-left: 10px">{{product.name}}</span>
+        </div>
       </div>
     </div>
   </div>

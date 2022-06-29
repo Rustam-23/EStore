@@ -1,4 +1,4 @@
-<div class="product-card">
+<div class="product-card" *ngIf="product$ | async; let product" >
   <div>Id: <b>{{product.id}}</b></div>
   <div><b>{{product.name}}</b></div>
   <div>Цена: <b>{{product.price}} руб.</b></div>

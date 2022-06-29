@@ -24,5 +24,11 @@ namespace EStore.Controllers
             var products = await _mediator.Send(new GetAllProductQuery(categoryId, minPrice, maxPrice, productOrder));
             return Ok(products);
         }
+        [HttpGet("getProductById")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var product = await _mediator.Send(new GetProductByIdQuery(id));
+            return Ok(product);
+        }
     }
 }
