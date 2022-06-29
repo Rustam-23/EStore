@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EStore.Services.ProductCQRS.Queries
 {
+    /// <summary>
+    /// Получение товаров по Id
+    /// </summary>
     public class GetProductByIdQuery : IRequest<IEnumerable<ProductDto>>
     {
         public int Id { get; set; }
